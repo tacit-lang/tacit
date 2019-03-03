@@ -1,0 +1,56 @@
+cout nil-blob
+
+-- ELF
+
+-- Elf64_Ehdr
+
+-- e_ident
+0x7F add 0x45 add 0x4C add 0x46 add
+0x02 add 0x01 add 0x01 add 0x00 add
+0x0d add
+
+-- e_type
+0x3h add
+
+-- e_machine
+0x3Eh add
+
+-- e_version
+0x1w add
+
+-- e_entry
+0x0000-0000-0804-81C9 add
+
+-- e_phoff
+0x0000-0000-0000-0040 add
+
+-- e_shoff
+0x0000-0000-0000-00B0 add
+
+-- e_flags
+0x0000-0000 add
+
+-- e_ehsize
+0x40h add
+
+-- e_phentsize
+0x38h add
+
+-- e_phnum
+0x2h add
+
+-- e_shentsize
+0x40h add
+
+-- e_shnum
+0x4h add
+
+-- e_shstrndx
+0x1h add
+
+
+-- Elf64_Phdr
+-- ...
+
+
+write
