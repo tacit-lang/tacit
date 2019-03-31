@@ -1,23 +1,23 @@
 main /=
-  cout
-  nil-blob
+  program-blob = nil-blob
+    generate-elf-header cat
+    generate-code cat
+    generate-data cat
 
-  generate-elf-header
-  generate-code
-  generate-data
-
-  write
+  cout program-blob write
 
 
 generate-elf-header /=
   -- ELF
-  generate-elf-entry-header
-  generate-elf-program-headers
-  generate-elf-section-headers
+  nil-blob
+  generate-elf-entry-header cat
+  generate-elf-program-headers cat
+  generate-elf-section-headers cat
 
 
 generate-elf-entry-header /=
   -- Elf64_Ehdr
+  nil-blob
 
   -- e_ident
   0x7F add  0x45 add  0x4C add  0x46 add
@@ -65,12 +65,14 @@ generate-elf-entry-header /=
 
 
 generate-elf-program-headers /=
-  generate-elf-code-program-header
-  generate-elf-data-program-header
+  nil-blob
+  generate-elf-code-program-header cat
+  generate-elf-data-program-header cat
 
 
 generate-elf-code-program-header /=
   -- Elf64_Phdr
+  nil-blob
 
   -- p_type
   0x1xw add
@@ -99,6 +101,7 @@ generate-elf-code-program-header /=
 
 generate-elf-data-program-header /=
   -- Elf64_Phdr
+  nil-blob
 
   -- p_type
   0x1xw add
@@ -126,15 +129,17 @@ generate-elf-data-program-header /=
 
 
 generate-elf-section-headers /=
-  generate-elf-nil-section-header
-  generate-elf-strings-section-header
-  generate-elf-code-section-header
-  generate-elf-data-section-header
-  generate-elf-section-strings-table
+  nil-blob
+  generate-elf-nil-section-header cat
+  generate-elf-strings-section-header cat
+  generate-elf-code-section-header cat
+  generate-elf-data-section-header cat
+  generate-elf-section-strings-table cat
 
 
 generate-elf-nil-section-header /=
   -- Elf64_Shdr
+  nil-blob
   0x0xw add -- sh_name
   0x0xw add -- sh_type
   0x0xd add -- sh_flags
@@ -149,6 +154,7 @@ generate-elf-nil-section-header /=
 
 generate-elf-strings-section-header /=
   -- Elf64_Shdr
+  nil-blob
 
   -- sh_name
   0x1xw add
@@ -183,6 +189,7 @@ generate-elf-strings-section-header /=
 
 generate-elf-code-section-header /=
   -- Elf64_Shdr
+  nil-blob
 
   -- sh_name
   0xBxw add
@@ -217,6 +224,7 @@ generate-elf-code-section-header /=
 
 generate-elf-data-section-header /=
   -- Elf64_Shdr
+  nil-blob
 
   -- sh_name
   0x11xw add
@@ -251,6 +259,7 @@ generate-elf-data-section-header /=
 
 generate-elf-section-strings-table /=
   -- shstrtab
+  nil-blob
 
   -- Undefined
   0x00 add
@@ -269,6 +278,8 @@ generate-elf-section-strings-table /=
 
 
 generate-code /=
+  nil-blob
+
   -- count
   -- mov $0x14,%edx
   0xBA add  0x14 add  0x00 add  0x00 add  0x00 add
@@ -302,6 +313,8 @@ generate-code /=
 
 
 generate-data /=
+  nil-blob
+
   -- 'Hello, Tacit World!'
   0x48 add  0x65 add  0x6C add  0x6C add  0x6F add
   0x2C add  0x20 add  0x54 add  0x61 add  0x63 add
